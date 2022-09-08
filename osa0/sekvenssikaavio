@@ -1,0 +1,42 @@
+0.4
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+palvelin-->selain: main.js
+
+selain suorittaa js.koodia 
+joka pyytää json-datan palvelimelta
+
+selain->palvelin HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+palvelin->selain statuskoodi 302 eli uudelleenohjauspyyntö
+
+selain->palvelin HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+palvelin-->selain: main.js
+
+0.5
+
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+palvelin-->selain: spa.js
+selain->palvelin HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+selain->palvelin HTTP GET https://studies.cs.helsinki.fi/favicon.ico
+
+
+0.6 
+
+selain->palvelin HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+
+palvelin->selain statuskoodi 201 eli selain pysyy samalla sivulla ilman muita pyyntöjä
+
+
