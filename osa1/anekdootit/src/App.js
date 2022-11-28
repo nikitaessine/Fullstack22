@@ -26,13 +26,19 @@ const App = () => {
   const [selected, setSelected] = useState(0)
   const k = anecdotes.length
   const [votes, setVotes] = useState([0,0,0,0,0,0,0])
+  const maxvote = Math.max(...votes)
+  const maxanicdote = votes.indexOf(maxvote)
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       <button onClick={() => setSelected(Random(k))}>Next anecdote</button>
       <button onClick={() => setVotes(Vote(selected,votes))}>Vote</button>
+      <h1>Anecdote with the most votes</h1>
+      <p>{anecdotes[maxanicdote]}</p>
+      <p>has {votes[maxanicdote]} votes</p>
     </div>
   )
 }
