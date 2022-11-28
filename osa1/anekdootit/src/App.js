@@ -6,6 +6,12 @@ const Random = (k) => {
   return i
 
 }
+
+const Vote = (selected, votes) => {
+  const array_copy = [...votes]
+  array_copy[selected] += 1
+  return array_copy
+}
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -19,11 +25,14 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const k = anecdotes.length
+  const [votes, setVotes] = useState([0,0,0,0,0,0,0])
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
-      <button onClick={() => setSelected(Random(k))}>Next</button>
+      <p>has {votes[selected]} votes</p>
+      <button onClick={() => setSelected(Random(k))}>Next anecdote</button>
+      <button onClick={() => setVotes(Vote(selected,votes))}>Vote</button>
     </div>
   )
 }
