@@ -1,9 +1,12 @@
-const Person = ({ person }) => {
+const Person = ({ filteredPersons }) => {
     return (
-      <li>
-        {person.name} {person.number}
-      </li>
-    )
-  }
-  
+        <div>
+        {filteredPersons.map(person => 
+          <p key={person.id}> 
+            {person.name} {person.number}
+          </p>
+        )}
+      </div>
+      )
+    }
   export default Person
