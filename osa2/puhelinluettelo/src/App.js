@@ -45,6 +45,17 @@ const App = () => {
     }
   }
 
+  const deletePerson = (person) => {
+    const persontodelete = person.name
+    if (window.confirm(`Delete ${persontodelete}?`)){
+      personService
+      .remove(person.id)
+      .then(response => {
+        setPersons(persons.filter(p => p.id !== person.id))
+      })
+    }
+  }
+
   const filteredPersons = persons.filter(person =>
     person.name.toLowerCase().includes(newFilter.toLowerCase()))
 
@@ -78,7 +89,7 @@ const App = () => {
       
       <h2>Numbers</h2>
 
-      <Person filteredPersons={filteredPersons}/>
+      <Person filteredPersons={filteredPersons} deletePerson={deletePerson}/>
         <div>debug: {newName}</div>
         <div>debug: {newNumber}</div>
     </div>
