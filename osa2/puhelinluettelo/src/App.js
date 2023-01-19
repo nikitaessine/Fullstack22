@@ -32,9 +32,13 @@ const App = () => {
     console.log(newName)
     const inArray = persons.filter((person) => person.name === newName)
     if (inArray.length === 0){
-      setPersons(persons.concat(personObject))
-      setNewName('')
-      setNewNumber('')
+      axios
+        .post('http://localhost:3001/persons', personObject)
+        .then(response => {
+          setPersons(persons.concat(response.data))
+          setNewName('')
+          setNewNumber('')    
+        })
       console.log('button clicked', event.target)
     } else{
       alert(`${newName} is already in the phonebook`)
