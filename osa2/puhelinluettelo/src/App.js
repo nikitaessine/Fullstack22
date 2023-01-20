@@ -61,6 +61,12 @@ const App = () => {
       .remove(person.id)
       .then(response => {
         setPersons(persons.filter(p => p.id !== person.id))
+        setSuccessMessage(
+          `Deleted ${person.name}`
+        )
+        setTimeout(() => {
+          setSuccessMessage(null)
+        }, 3000)
       })
     }
   }
