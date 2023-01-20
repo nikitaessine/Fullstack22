@@ -3,6 +3,8 @@ import Person from './components/Person'
 import Filter from './components/Filter'
 import NewPersonForm from './components/NewPersonForm'
 import personService from './services/persons'
+import Notification from './components/Notification'
+import './index.css'
 
 
 const App = () => {
@@ -10,6 +12,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [successMessage, setSuccessMessage] = useState(null)
 
 
   useEffect(() => {
@@ -36,6 +39,12 @@ const App = () => {
         .create(personObject)
         .then(response => {
           setPersons(persons.concat(response.data))
+          setSuccessMessage(
+            `Added ${personObject.name}`
+          )
+          setTimeout(() => {
+            setSuccessMessage(null)
+          }, 3000)
           setNewName('')
           setNewNumber('')    
         })
@@ -76,6 +85,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={successMessage} />
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange}/>
 
       <h2>add new</h2>
