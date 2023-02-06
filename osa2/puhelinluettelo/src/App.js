@@ -19,9 +19,10 @@ const App = () => {
     console.log('effect')
     personService
       .getAll()
-      .then(response => {
+      .then(data => {
         console.log('fulfilled')
-        setPersons(response.data)
+        console.log(data)
+        setPersons(data)
       })
   }, [])
 
@@ -29,18 +30,19 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
-      name: newName,
+      content: newName,
       number: newNumber
     }
     console.log(newName)
-    const inArray = persons.filter((person) => person.name === newName)
+    const inArray = persons.filter((person) => person.content === newName)
     if (inArray.length === 0){
       personService
         .create(personObject)
         .then(response => {
-          setPersons(persons.concat(response.data))
+          console.log(response)
+          setPersons(persons.concat(response))
           setSuccessMessage(
-            `Added ${personObject.name}`
+            `Added ${personObject.content}`
           )
           setTimeout(() => {
             setSuccessMessage(null)
@@ -55,14 +57,14 @@ const App = () => {
   }
 
   const deletePerson = (person) => {
-    const persontodelete = person.name
+    const persontodelete = person.content
     if (window.confirm(`Delete ${persontodelete}?`)){
       personService
       .remove(person.id)
       .then(response => {
         setPersons(persons.filter(p => p.id !== person.id))
         setSuccessMessage(
-          `Deleted ${person.name}`
+          `Deleted ${person.content}`
         )
         setTimeout(() => {
           setSuccessMessage(null)
@@ -72,7 +74,7 @@ const App = () => {
   }
 
   const filteredPersons = persons.filter(person =>
-    person.name.toLowerCase().includes(newFilter.toLowerCase()))
+    person.content.toLowerCase().includes(newFilter.toLowerCase()))
 
   const handlePersonChange = (event) => {
     console.log(event.target.value)
