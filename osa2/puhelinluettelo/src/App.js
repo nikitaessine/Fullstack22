@@ -98,7 +98,7 @@ const App = () => {
         })
         .catch(error => {
           console.log(error.response.data)
-          setErrorMessage(`${error.response.data.erro}`)
+          setErrorMessage(`${error.response.data.error}`)
           setTimeout(() => {
             setErrorMessage(null)
           }, 3000)
