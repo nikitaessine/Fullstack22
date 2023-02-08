@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "app": "^0.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "http": "^0.0.1-security",
     "mongoose": "^6.9.1",
     "node": "^19.6.0",
