@@ -18,11 +18,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node index.js",
-    "build": "react-scripts build",
+    "start": "NODE_ENV=production node index.js",
+    "build": "NODE_ENV=development nodemon index.js",
     "eject": "react-scripts eject",
     "dev": "nodemon index.js",
-    "test": "jest --verbose"
+    "test": "NODE_ENV=test jest --verbose --runInBand"
   },
   "eslintConfig": {
     "extends": [
@@ -44,9 +44,11 @@
   },
   "devDependencies": {
     "jest": "^27.5.1",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "globalTeardown": "./tests/teardown.js"
   }
 }
