@@ -56,6 +56,26 @@ test('if likes is not defined, it is set to 0', async () => {
     expect(nolikes.likes).toBe(0)
   })
 
+test('responds with 400 if title is missing', async () => {
+    const newBlog = {
+        author: 'testaaja',
+        url: 'testi.fi',
+        likes: 0
+    }
+
+    await api.post('/api/blogs').send(newBlog).expect(400);
+})
+
+test('responds with 400 if url is missing', async () => {
+    const newBlog = {
+        title: 'testi',
+        author: 'testaaja',
+        likes: 0
+    }
+
+    await api.post('/api/blogs').send(newBlog).expect(400);
+})
+
 
 afterAll(async () => {
   await mongoose.connection.close()

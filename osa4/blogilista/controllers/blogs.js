@@ -15,6 +15,18 @@ blogsRouter.post('/', (request, response) => {
 
     const body = request.body
 
+    if (!body.title) {
+      return response.status(400).json({
+          error: 'no title'
+      })
+    }
+  
+    if (!body.url) {
+      return response.status(400).json({
+          error: 'no url'
+      })
+    }
+
     const blog = new Blog({
       title: body.title,
       author: body.author,
