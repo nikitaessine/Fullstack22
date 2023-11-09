@@ -1,6 +1,10 @@
 POST http://localhost:3003/api/blogs  
 Content-Type: application/json
 
-{
-"author": "kalle", "title": "chatgpt", "url": "www.is.fi", "likes": 0
+{  
+    "author": "linus torvalds",
+    "title": "kayttajan root eka blogi",
+    "url": "www.hel.com",
+    "user": "654cd641152dc62ae9886eb0",
+    "likes": 2
 }
