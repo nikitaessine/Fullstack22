@@ -1,10 +1,11 @@
 POST http://localhost:3003/api/blogs  
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNsdXNoIiwiaWQiOiI2NTRmYTE4OGUyODhlZjA1YTc2YzFhN2IiLCJpYXQiOjE2OTk3MTkyNTR9.UjM3xwFuz4laGZY-U7HlVHUAeko0qzlKZXgPRvT5bjE
 
 {  
-    "author": "linus torvalds",
-    "title": "kayttajan root eka blogi",
-    "url": "www.hel.com",
-    "user": "654cd641152dc62ae9886eb0",
-    "likes": 2
+    "author": "miaja meikalainen",
+    "title": "kayttajan root toka blogi",
+    "url": "www.helsinki.com",
+    "user": "654fa188e288ef05a76c1a7b",
+    "likes": 3
 }
