@@ -9,6 +9,7 @@ const BlogForm = ({ createBlog }) => {
     setNewBlog({ ...newBlog, [event.target.name]: event.target.value })
   }
 
+
   const addBlog = (event) => {
     event.preventDefault()
     createBlog(newBlog)
@@ -47,7 +48,7 @@ const BlogForm = ({ createBlog }) => {
           onChange={handleNewBlogChange}
         />
       </div>
-      <button type="submit">create</button>
+      <button type="submit" id='create-button'>create</button>
     </form>
   )
 }

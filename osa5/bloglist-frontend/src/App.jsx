@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const blogFormRef = useRef()
   const [errorMessage, setErrorMessage] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -29,8 +30,6 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
-
-  const blogFormRef = useRef()
 
 
   const handleLogin = async (event) => {
@@ -59,12 +58,18 @@ const App = () => {
     }, 5000)
   }
 
-  const addBlog = async (newBlog) => {
-    const returnedBlog = await blogService.create(newBlog)
-    returnedBlog.user = user
-    setBlogs(blogs.concat(returnedBlog))
-    notify(`A new blog ${returnedBlog.title} added`)
+  const addBlog = async (blogObject) => {
     blogFormRef.current.toggleVisibility()
+    const returnedBlog = await blogService.create(blogObject)
+    const newBlogs = blogs.concat(returnedBlog)
+
+    newBlogs.sort((a, b) => new Date(b.date) - new Date(a.date))
+
+    setBlogs(newBlogs)
+    notify(`New blog ${blogObject.title} by ${blogObject.author} added`)
+    setTimeout(() => {
+      notify('')
+    }, 2000)
   }
 
   const handleLogout = () => {
@@ -93,6 +98,7 @@ const App = () => {
       <div>
         username
         <input
+          id='username'
           type="text"
           value={username}
           name="Username"
@@ -102,13 +108,14 @@ const App = () => {
       <div>
         password
         <input
+          id='password'
           type="password"
           value={password}
           name="Password"
           onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type="submit">login</button>
+      <button type="submit" id='login-button'>login</button>
     </form>
   )
 
@@ -134,7 +141,7 @@ const App = () => {
           <BlogForm createBlog={addBlog} />
         </Togglable>
         {[...blogs].sort((a, b) => b.likes - a.likes).map(blog =>
-          <Blog key={blog.id} blog={blog} handleLike={likeBlog} handleRemove={handleRemove} user={user} />
+          <Blog className='blog' key={blog.id} blog={blog} handleLike={likeBlog} handleRemove={handleRemove} user={user} />
         )}
       </div>
     )
