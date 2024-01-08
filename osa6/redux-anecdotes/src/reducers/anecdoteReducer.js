@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
-  let newAnecdote; // Move the declaration outside of the switch statement
+  let newAnecdote
 
   switch(action.type) {
     case VOTE_ANECDOTE:
