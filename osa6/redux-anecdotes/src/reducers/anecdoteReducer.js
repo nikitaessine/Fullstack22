@@ -1,3 +1,6 @@
+import { createSlice } from '@reduxjs/toolkit'
+import { setNotificationWithTimeout } from './notificationReducer'
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -6,10 +9,6 @@ const anecdotesAtStart = [
   'Premature optimization is the root of all evil.',
   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
 ]
-
-const VOTE_ANECDOTE = 'VOTE_ANECDOTE'
-const CREATE_ANECDOTE = 'CREATE_ANECDOTE'
-
 
 const getId = () => (100000 * Math.random()).toFixed(0)
 
@@ -23,42 +22,32 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
-
-  let newAnecdote
-
-  switch(action.type) {
-    case VOTE_ANECDOTE:
-      return state.map(anecdote =>
-        anecdote.id !== action.data.id ? anecdote : { ...anecdote, votes: anecdote.votes + 1 }
-      )
-    case CREATE_ANECDOTE:
-      newAnecdote = {
-        content: action.data.content,
-        id: getId(),
-        votes: 0
+const anecdoteSlice = createSlice({
+  name: 'anecdotes',
+  initialState,
+  reducers: {
+    voteAnecdote: (state, action) => {
+      const anecdote = state.find(anecdote => anecdote.id === action.payload)
+      if (anecdote) {
+        anecdote.votes++
       }
-      return [...state, newAnecdote]
-    default:
-      return state
+    },
+    createAnecdote: (state, action) => {
+      const newAnecdote = asObject(action.payload)
+      state.push(newAnecdote)
+    }
+  }
+})
+
+export const { voteAnecdote, createAnecdote } = anecdoteSlice.actions
+
+export const voteAnecdoteWithNotification = (id) => {
+  return async (dispatch, getState) => {
+    dispatch(voteAnecdote(id))
+    const votedAnecdote = getState().anecdotes.find(anecdote => anecdote.id === id)
+    dispatch(setNotificationWithTimeout(`You voted for '${votedAnecdote.content}'`, 5))
   }
 }
 
-export const voteAnecdote = (id) => {
-  return {
-    type: VOTE_ANECDOTE,
-    data: { id }
-  }
-}
 
-export const createAnecdote = (content) => {
-  return {
-    type: CREATE_ANECDOTE,
-    data: { content }
-  }
-}
-
-
-export default reducer
+export default anecdoteSlice.reducer
