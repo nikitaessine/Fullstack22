@@ -5,7 +5,7 @@ const AnecdoteList = () => {
   const filter = useSelector(state => state.filter)
   const anecdotes = useSelector(state => 
     state.anecdotes.filter(anecdote => 
-      anecdote.content.toLowerCase().includes(filter.toLowerCase())
+      typeof anecdote.content === 'string' && anecdote.content.toLowerCase().includes(filter.toLowerCase())
     ).sort((a, b) => b.votes - a.votes)
   )
   const dispatch = useDispatch()
